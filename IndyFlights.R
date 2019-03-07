@@ -43,3 +43,15 @@ sum((myDF$Dest == "LAX") & (myDF$Origin == "ATL") & (myDF$Year == 2008))
 myATL2LAX <- subset(myDF, (myDF$Origin == "ATL") & (myDF$Dest == "LAX"))
 sum(myATL2LAX$Year == 2008)
 sum(myATL2LAX$DepTime < 1200, na.rm = TRUE) 
+table(myDF$Origin)
+sort(table(myDF$Origin))
+
+
+seq(0, 2400, by=100)
+cut(myDF$DepTime, breaks=seq(0, 2400, by=100))
+table(cut(myDF$DepTime, breaks=seq(0, 2400, by=100)))
+plot(table(cut(myDF$DepTime, breaks=seq(0, 2400, by=100))))
+
+#Quiz #6
+sum(table(paste(myDF$Origin, "to", myDF$Dest)) == 1)
+
