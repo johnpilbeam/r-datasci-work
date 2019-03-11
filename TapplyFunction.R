@@ -34,6 +34,14 @@ myDates <- paste(myDF$Month, myDF$DayofMonth, myDF$Year, sep = "/")
 length(myDF$ArrDelay)
 length(myDates)
 length(tapply(myDF$ArrDelay, myDates, mean, na.rm=TRUE))
+sort(tapply(myDF$ArrDelay, myDates, mean, na.rm=TRUE))
 
-#Quiz #9
+ordtoind <- myDF$Dest=="IND" & myDF$Origin == "ORD"
 
+# Arrival Delays by Flight Path
+sort(tapply(myDF$ArrDelay[ordtoind], myDates[ordtoind], mean, na.rm=TRUE))
+
+#Quiz #10
+atltolax <- myDF$Dest=="LAX" & myDF$Origin == "ATL"
+sum(tapply(myDF$DepDelay[atltolax], 
+           myDates[atltolax], mean, na.rm=TRUE) > 90, na.rm=TRUE)
