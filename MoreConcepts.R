@@ -82,4 +82,43 @@ dotchart(myVec)
 dotchart(sort(myVec))
 
 # 4.10 Identifying Airports with Commercial Flights
+head(airportsDF)
+table(airportsDF$state)
 
+subset(airportsDF, state == "IN")
+
+indyairports <- subset(airportsDF, state == "IN")
+
+# we can make a table that shows all of the flight counts
+# (as origins) for all airports in the full data set
+# from 2006 to 2008 (not just Indiana airports)
+table(myDF$Origin)
+table(myDF$Origin)["IND"]
+table(myDF$Origin)["ORD"]
+
+# These are the 3-letter airport codes for the airports in Indiana
+as.character(indyairports$iata)
+table(myDF$Origin)[as.character(indyairports$iata)]
+v <- table(myDF$Origin)[as.character(indyairports$iata)]
+v[!is.na(v)]
+names(v[!is.na(v)])
+subset(airportsDF, iata %in% names(v[!is.na(v)]))
+
+
+# 4.12 Creating and Applying Functions Built by the Learner
+mystate <- "IN"
+myairports <- subset(airportsDF, state == mystate)
+myairports
+table(myDF$Origin)[as.character(myairports$iata)]
+
+activeairports <- function(mystate) {
+  myairports <- subset(airportsDF, state == mystate)
+  v <- table(myDF$Origin)[as.character(myairports$iata)]
+  subset(airportsDF, iata %in% names(v[!is.na(v)]))
+}
+
+activeairports("IN")
+activeairports("IL")
+activeairports("CA")
+sapply(state.abb,function(x) 
+dim(activeairports(x))[1])
